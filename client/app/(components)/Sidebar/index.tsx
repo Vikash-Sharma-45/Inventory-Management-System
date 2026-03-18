@@ -2,9 +2,10 @@
 
 import { useAppDispatch, useAppSelector } from '@/app/redux';
 import { setIsDarkMode, setIsSidebarCollapsed } from '@/state';
-import { Archive, CircleDollarSign, Clipboard, Layout, Link, LucideIcon, Menu, SlidersHorizontal, User } from 'lucide-react'
+import { Archive, CircleDollarSign, Clipboard, Layout, LucideIcon, Menu, SlidersHorizontal, User } from 'lucide-react'
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { use } from 'react'
+import React from 'react'
 
 interface SidebarLinkProps {
     href: string;
@@ -25,7 +26,7 @@ const SidebarLink = ({
 
     return (
         <Link href={href}>
-            <div className={`flex items-center cursor-pointer ${isCollapsed ? "py-4 justify-center" : "justify-center px-8 py-4"} hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${isActive ? "bg-blue-200 text-white" : ""} `}>
+            <div className={`flex items-center cursor-pointer ${isCollapsed ? "py-4 justify-center" : "px-8 py-4 justify-start"} hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${isActive ? "bg-blue-200 text-white" : ""} `}>
                 <Icon className='w-6 h-6 !text-grey-700'/>
                 <span className={`${isCollapsed ? "hidden" : "block"} font-medium text-gray-700`}>{label}</span>
             </div>
@@ -48,7 +49,7 @@ const Sidebar = () => {
         {/*TOP LOGO */}
             <div className={`flex gap-3 justify-between md:justify-normal items-center pt-8 ${isSidebarCollapsed ? "px-5" : "px-8"}`}>
                 <div>Logo</div>
-                <h1 className={`{isSidebarCollapsed ? "hidden" : "block"} font-extrabold text-2xl`}>EDSTOCK</h1>
+                <h1 className={`${isSidebarCollapsed ? "hidden" : "block"} font-extrabold text-2xl`}>EDSTOCK</h1>
             
                 <button className="md:hidden px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100" onClick={toggleSidebar}>
                     <Menu className='h-4 w-4'/>
@@ -70,7 +71,7 @@ const Sidebar = () => {
 
             </div>
         {/*FOOTER */}
-            <div className={`${isSidebarCollapsed ? "hidden" : "blocked"} mb-10`}>
+            <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
                 <p className='text-center text-xs text-gray-500'>&copy; 2024 EDSTOCK. All rights reserved.</p>
             </div>
     </div>
