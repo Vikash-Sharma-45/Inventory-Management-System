@@ -11,3 +11,78 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Users {
+  userId String @id
+  name String
+  email String
+}
+
+
+model Products {
+  productId String @id
+  name String
+  price Float
+  rating Float?
+  stockQuantity Int
+  sales Sales[]
+  purchases Purchases[]
+}
+
+model Sales {
+  saleid String @id
+  productId String
+  timestamp DateTime
+  quantity Int
+  unitPrice Float
+  totalAmount Float
+  product Products @relation(fields: [productId], references: [productId])
+}
+
+model Purchases {
+  purchaseId String @id
+  productId String
+  timestamp DateTime
+  quantity Int
+  unitCost Float
+  totalCost Float
+  product Products @relation(fields: [productId], references: [productId])
+}
+
+model Expenses {
+  expenseId String @id
+  category String
+  amount Float
+  timestamp DateTime
+
+}
+
+model SalesSummary {
+  summaryId String @id
+  totalValue Float
+  changPercentage Float?
+  date DateTime
+}
+
+model PurchaseSummary {
+  purchaseSummaryId String @id
+  totalPurchased Float
+  changePercentage Float?
+  date DateTime
+}
+
+model ExpenseSummary {
+  expenseSummaryId String @id
+  totalExpenses Float
+  date DateTime
+  expeseByCategory ExpenseByCategory[]
+}
+
+model ExpenseByCategory {
+  expenseByCategoryId String @id
+  expenseSummaryId String
+  category String
+  amount Float
+  date DateTime
+  expenseSummary ExpenseSummary @relation(fields: [expenseSummaryId], references: [expenseSummaryId])
+}
